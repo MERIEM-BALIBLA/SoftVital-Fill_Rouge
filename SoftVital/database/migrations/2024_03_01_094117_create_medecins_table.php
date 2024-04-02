@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('medecins', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->string('specialite_id')->constrained('specialites');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('specialite_id')->constrained('specialites')->onDelete('cascade');
             $table->string('cabinet');
-            // $table->foreignId('ville_id')->constrained('villes');
             $table->text('adresse_cabinet');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

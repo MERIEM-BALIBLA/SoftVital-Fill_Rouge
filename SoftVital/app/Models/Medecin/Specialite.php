@@ -10,4 +10,8 @@ class Specialite extends Model
     use HasFactory;
 
     protected $fillable = ['specialite'];
+
+    // public function medecin(){
+    //     return $this->hasMany(Medecin::class);
+    // }
 }

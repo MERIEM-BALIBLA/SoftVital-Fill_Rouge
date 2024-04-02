@@ -21,36 +21,41 @@ class RegisterRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'nom' => 'required',
-            'cin' => 'required',
-            'numero' => 'required',
+        $rules = [
+            'nom' => 'required|min:4',
+            'cin' => 'required|unique:users',
+            'numero' => 'required|digits:10',
             'ville' => 'required',
-            'role' => 'required|string',
-            'email' => 'required',
-            'password' => 'required',
-            'password_confirmation'=>'required',
+            'role' => 'required',
+            'email' => 'required|unique:users|email',
+            'password' => 'required|min:4|confirmed',
         ];
 
-        // medecin
+        // Ajouter des règles spécifiques au médecin si le rôle est "medecin"
         if ($this->input('role') === 'medecin') {
             $rules['specialite'] = 'required|string';
             $rules['cabinet'] = 'required|string';
             $rules['adresse_cabinet'] = 'required|string';
         }
+
+        return $rules;
     }
 
-    public function message(): array{
-        return[
-            'nom.required'=>'ce champ doit etrev remplit',
-            'cin.required'=>'ce champ doit etrev remplit',
-            'numero.required'=>'ce champ doit etrev remplit',
-            'ville.required'=>'ce champ doit etrev remplit',
+
+    public function message(): array
+    {
+        return [
+            'nom.required' => 'ce champ doit etrev remplit',
+            'cin.required' => 'ce champ doit etrev remplit',
+            'numero.required' => 'ce champ doit etrev remplit',
+            'ville.required' => 'ce champ doit etrev remplit',
+            'role.required' => 'ce champ doit etrev remplit',
 
 
-            'email.required'=>'ce champ doit etrev remplit',
-            'password.required'=>'ce champ doit etrev remplit',
-            'password_confirmation.required'=>'ce champ doit etrev remplit',
+
+            'email.required' => 'ce champ doit etrev remplit',
+            'password.required' => 'ce champ doit etrev remplit',
+            'password_confirmation.required' => 'ce champ doit etrev remplit',
 
         ];
 

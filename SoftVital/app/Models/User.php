@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Medecin\Medecin;
+use App\Models\medecin\Post;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -52,7 +54,18 @@ class User extends Authenticatable
         return $this->belongsTo(Ville::class);
     }
 
-    public function role(){
-        return $this->belongsToMany(Role::class,'users_roles');
+    public function role()
+    {
+        return $this->belongsToMany(Role::class, 'users_roles');
+    }
+
+    // Modèle User
+    public function medecin()
+    {
+        return $this->hasOne(Medecin::class);
+    }
+
+    public function post(){
+        return $this->hasMany(Post::class);
     }
 }
